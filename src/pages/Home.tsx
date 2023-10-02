@@ -1,73 +1,44 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import "./Home.css";
 
 type SharedProps = {
     pic: string;
-    link?: string;
-    title?: string;
+    title: string;
+    currentLink: string;
+    links: {
+        link: string;
+        title: string;
+    }[];
 }
 
-/*export const Sub: React.FC<SharedProps> = (props) => {
-    function getLinkElement() {
-        return (
-            <Link to={`${props.link}`} style={{ display: 'inline-block', width: '100px' }}>{props.title}</Link>
-        );
+export const Sub: React.FC<SharedProps> = (props) => {
+    function getLinkElements() {
+        const links: JSX.Element[] = [];
+
+        for (const info of props.links) {
+            const isCurrent = info.link === props.currentLink;
+
+            const element = (
+                <Link key={info.link} to={`${info.link}`} style={{ display: 'inline-block', width: '100px' }}
+                    className={isCurrent ? "disabled-link" : ""}>{info.title}</Link>
+            );
+            links.push(element);
+        }
+
+        return links;
     }
 
     return (
         <>
             <main>
-                <h2>Home</h2>
+                <h2>{props.title}</h2>
                 <img src={props.pic} alt="" />
             </main>
             <nav>
                 {
-                    getLinkElement()
+                    getLinkElements()
                 }
-            </nav>
-        </>
-    );
-};*/
-
-export const Home: React.FC<SharedProps> = (props) => {
-    return (
-        <>
-            <main>
-                <h2>Home</h2>
-                <img src={props.pic} alt="" />
-            </main>
-            <nav>
-                <Link to="/subA" style={{ display: 'inline-block', width: '100px' }}>SubA</Link>
-            </nav>
-        </>
-    );
-};
-
-export const SubA: React.FC<SharedProps> = (props) => {
-    return (
-        <>
-            <main>
-                <h2>SubA</h2>
-                <img src={props.pic} alt="" />
-            </main>
-            <nav>
-                <Link to="/">Home</Link>
-                <Link to="/subB" style={{ display: 'inline-block', width: '100px' }}>SubB</Link>
-            </nav>
-        </>
-    );
-};
-
-export const SubB: React.FC<SharedProps> = (props) => {
-    return (
-        <>
-            <main>
-                <h2>SubB</h2>
-                <img src={props.pic} alt="" />
-            </main>
-            <nav>
-                <Link to="/">Home</Link>
-                <Link to="/subA" style={{ display: 'inline-block', width: '100px' }}>SubA</Link>
             </nav>
         </>
     );
