@@ -1,26 +1,24 @@
-import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import React from 'react';
+import { Routes, Route } from "react-router-dom";
+import { Home, SubA, SubB } from "./pages/Home";
+import rootPic from "./assets/60fps_parrot.gif";
+import homePic from "./assets/cop_parrot.gif";
+import subPicA from "./assets/birthday_party_parrot.gif";
+import subPicB from "./assets/laptop_parrot.gif";
 
-function App() {
+const App: React.FC = () => {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <img src={rootPic} alt="" />
+      <hr />
+      <Routes>
+        <Route path="/" element={<Home pic={homePic} />} />
+        <Route path="/subA" element={<SubA pic={subPicA} />} />
+        <Route path="/subB" element={<SubB pic={subPicB} />} />
+      </Routes>
     </div>
   );
-}
+};
 
 export default App;
